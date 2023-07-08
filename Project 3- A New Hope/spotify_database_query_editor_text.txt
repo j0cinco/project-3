@@ -1,0 +1,47 @@
+-- database: c:\Users\13217\Desktop\BootCamp_Coursework\Project 3\spotify_database.db
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM "spotify_analytics";
+
+
+SELECT AVG(popularity), genre
+FROM spotify_analytics
+GROUP BY genre
+ORDER BY AVG(popularity) DESC;
+
+SELECT artist_name, popularity, year, genre
+FROM spotify_analytics
+WHERE genre='alt-rock'
+GROUP BY artist_name
+ORDER BY popularity DESC;
+
+SELECT artist_name, popularity, year, genre
+FROM spotify_analytics
+WHERE genre='pop'
+GROUP BY artist_name
+ORDER BY popularity DESC;
+
+SELECT artist_name, popularity, year, genre
+FROM spotify_analytics
+WHERE genre='electro'
+GROUP BY artist_name
+ORDER BY popularity DESC;
+
+SELECT artist_name, popularity, year, genre
+FROM spotify_analytics
+WHERE genre='metal'
+GROUP BY artist_name
+ORDER BY popularity DESC;
+
+SELECT artist_name, popularity, year, genre
+FROM spotify_analytics
+WHERE genre='indie-pop'
+GROUP BY artist_name
+ORDER BY popularity DESC;
+
+SELECT artist_name, popularity, year, genre
+FROM spotify_analytics
+WHERE genre='country'
+GROUP BY artist_name
+ORDER BY popularity DESC;
