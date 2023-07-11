@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  min-width: 100%;
+  min-height: 100%;
+}
+
 body {
   font-family: "Century Gothic", sans-serif;
+  background-color: #333;
 }
 
 .sidenav {
@@ -41,22 +47,28 @@ body {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-</style>
-</head>
-<body>
 
-<div class="sidenav">
-  <a href="#genre">Genre</a>
-  <a href="#pop">Pop</a>
-  <a href="#rap">Rap</a>
-  <a href="#country">Country</a>
-  <a href="#dubstep">Dubstep</a>
-</div>
+.container{
+  margin: 40px auto;
+  margin-top: 60px;
+  margin-left: 21%;
+  width:900px;
+  height:825px;
+  display:grid;
+  grid-template-columns: 600px 600px;
+  grid-row: auto auto;
+  grid-column-gap: 50px;
+  grid-row-gap: 20px;
+  .box{
+    background-color:#1DB954;
+    padding:20px;
+    border-radius:10px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    font-family:"Century Gothic", sans-serif;
+  }
 
-<div class="main">
-  <h2>Whatever We Want TO FILL IN ON THE RIGHT OF THE SIDEBAR</h2>
-  <p>THESE WILL BE OUR CHARTS ON THE RIGHT OF THE SIDEBAR</p>
-</div>
-   
-</body>
-</html> 
+}
