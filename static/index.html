@@ -9,19 +9,53 @@
 <body>
     <video autoplay muted loop id="myVideo">
         <source src="background.mp4" type="video/mp4">
-      </video>
-        
-    <div id="slider">
-        <input type="range" min="0" max="100" value="0" />
+    </video>
+
+    <div class="fullslide">
+        <input class="slider" type="range" min="0" max="24" id="my-range" list="my-datalist"/>
+        <datalist class="sliderdata" id="my-datalist" style="--list-length: 24;"><!--
+          ---><option>2000</option><!--
+          ---><option>2001</option><!--
+          ---><option>2002</option><!--
+          ---><option>2003</option><!--
+          ---><option>2004</option><!--
+          ---><option>2005</option><!--
+          ---><option>2006</option><!--
+          ---><option>2007</option><!--
+          ---><option>2008</option><!--
+          ---><option>2009</option><!--
+          ---><option>2010</option><!--
+          ---><option>2011</option><!--
+          ---><option>2012</option><!--
+          ---><option>2013</option><!--
+          ---><option>2014</option><!--
+          ---><option>2015</option><!--
+          ---><option>2016</option><!--
+          ---><option>2017</option><!--
+          ---><option>2018</option><!--
+          ---><option>2019</option><!--
+          ---><option>2020</option><!--
+          ---><option>2021</option><!--
+          ---><option>2022</option><!--
+          ---><option>2023</option><!--
+        ---></datalist>
     </div>
+             
     
     <section>
         <div class="sidenav">
             <a href="#genre">Genre</a>
-            <a href="#pop">Pop</a>
             <a href="#rap">Rap</a>
-            <a href="#country">Country</a>
+            <a href="#funk">Funk</a>
+            <a href="#pop">Pop</a>
+            <a href="#k-pop">K-Pop</a>
+            <a href="#indie-pop">Indie-Pop</a>
             <a href="#dubstep">Dubstep</a>
+            <a href="#rock">Rock</a>
+            <a href="#alt-rock">Alt-Rock</a>
+            <a href="#metal">Metal</a>
+            <a href="#country">Country</a>
+            
         </div>
     
         <div class="container">

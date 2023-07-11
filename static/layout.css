@@ -13,6 +13,31 @@ body {
   background-color: #333;
 }
 
+.fullslide {
+  position:absolute;
+  width:90%;
+  left:175px; 
+  top:30px;
+}
+
+.slider {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+}
+
+/* style datalist */
+input[type=range] + datalist {
+  display: block;
+  margin-top: -2px;
+}
+input[type=range] + datalist option {
+  display: inline-block;
+  width: calc((90% - 12px) / (var(--list-length) - 1));
+  text-align: center;
+  color:#f1f1f1;
+}
+
 .sidenav {
   height: 100%;
   width: 160px;
@@ -50,7 +75,7 @@ body {
 
 .container{
   margin: 40px auto;
-  margin-top: 60px;
+  margin-top: 90px;
   margin-left: 21%;
   width:900px;
   height:825px;
