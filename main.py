@@ -14,6 +14,7 @@ def home():
 
     return render_template('home.html')
 
+@app.route('/rap')
 def rap():
 
     return render_template('rap.html')
@@ -23,17 +24,12 @@ def pop():
 
     return render_template('pop.html')
 
-@app.route('/hiphop')
+@app.route('/rock')
 def hip_hop():
 
-    return render_template('hiphop.html')
+    return render_template('rock.html')
 
 @app.route('/country')
 def country():
 
     return render_template('country.html')
-
-@app.route('/dubstep')
-def dubstep():
-
-    return render_template('dubstep.html')

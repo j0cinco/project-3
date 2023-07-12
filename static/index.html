@@ -44,11 +44,11 @@
     
     <section>
         <div class="sidenav">
-            <a href="#home">Home</a>
-            <a href="#rap">Rap</a>
-            <a href="#pop">Pop</a>
-            <a href="#rock">Rock</a>
-            <a href="#country">Country</a>
+            <a href="{{ url_for('/home', param='value') }}">Home</a>
+            <a href="{{ url_for('/rap', param='value') }}">Rap</a>
+            <a href="{{ url_for('/pop', param='value') }}">Pop</a>
+            <a href="{{ url_for('/rock', param='value') }}">Rock</a>
+            <a href="{{ url_for('/country', param='value') }}">Country</a>
             
         </div>
     
