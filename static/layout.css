@@ -1,4 +1,9 @@
-
+.sidenav a,
+.sidenav button {
+    font-family: inherit;
+    font-size: inherit;
+    /* Add any other desired styles */
+}
 #myVideo {
   position: fixed;
   right: 0;
@@ -80,7 +85,7 @@ input[type=range] + datalist option {
   width:900px;
   height:825px;
   display:grid;
-  grid-template-columns: 600px 600px;
+  grid-template-columns: 500px 500px;
   grid-row: auto auto;
   grid-column-gap: 50px;
   grid-row-gap: 20px;

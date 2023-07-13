@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
-
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 </head>
 <body>
     <video autoplay muted loop id="myVideo">
@@ -13,55 +14,111 @@
 
     </video>
 
-    <div class="fullslide">
-        <input class="slider" type="range" min="0" max="23" id="my-range" list="my-datalist"/>
-        <datalist class="sliderdata" id="my-datalist" style="--list-length: 24;"><!--
-          ---><option>2000</option><!--
-          ---><option>2001</option><!--
-          ---><option>2002</option><!--
-          ---><option>2003</option><!--
-          ---><option>2004</option><!--
-          ---><option>2005</option><!--
-          ---><option>2006</option><!--
-          ---><option>2007</option><!--
-          ---><option>2008</option><!--
-          ---><option>2009</option><!--
-          ---><option>2010</option><!--
-          ---><option>2011</option><!--
-          ---><option>2012</option><!--
-          ---><option>2013</option><!--
-          ---><option>2014</option><!--
-          ---><option>2015</option><!--
-          ---><option>2016</option><!--
-          ---><option>2017</option><!--
-          ---><option>2018</option><!--
-          ---><option>2019</option><!--
-          ---><option>2020</option><!--
-          ---><option>2021</option><!--
-          ---><option>2022</option><!--
-          ---><option>2023</option><!--
-        ---></datalist>
-    </div>
-             
-    
+
     <section>
         <div class="sidenav">
-            <a href="#genre">Genre</a>
-            <a href="#pop">Pop</a>
-            <a href="#rap">Rap</a>
-            <a href="#country">Country</a>
-            <a href="#dubstep">Dubstep</a>
-          </div>
+            <a href="Data">Data</a>
+            <a href="Pop">Pop</a>
+            <a href="Rap">Rap</a>
+            <a href="Country">Country</a>
+            <a href="Dubstep">Dubstep</a>
+            <a onclick="update(data1)">Variable 1</a>
+            <a onclick="update(data2)">Variable 2</a>
+
+
+
+        </div>
             
     
         <div class="container">
             <div class="box">Top 20 Artists</div>
-            <div class="box">Major VS Minor Chords</div>
+            <div class="box" id="my_dataviz1"></div>
             <div class="box">Tempo VS Popularity</div>
-            <div class="box">Happy or Sad</div>
+            <div class="box" ></div>
         </div>
     </section>
-   
+
+    <script>
+
+        // create 2 data_set
+        var data1 = [
+           {group: "A", value: 4},
+           {group: "B", value: 16},
+           {group: "C", value: 8}
+        ];
+        
+        var data2 = [
+           {group: "A", value: 7},
+           {group: "B", value: 1},
+           {group: "C", value: 20},
+           {group: "D", value: 10}
+        ];
+        
+        // set the dimensions and margins of the graph
+        var margin = {top: 30, right: 30, bottom: 70, left: 60},
+            width = 460 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+        
+        // append the svg object to the body of the page
+        var svg = d3.select("#my_dataviz1")
+          .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+        
+        // Initialize the X axis
+        var x = d3.scaleBand()
+          .range([ 0, width ])
+          .padding(0.2);
+        var xAxis = svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+        
+        // Initialize the Y axis
+        var y = d3.scaleLinear()
+          .range([ height, 0]);
+        var yAxis = svg.append("g")
+          .attr("class", "myYaxis")
+        
+        
+        // A function that create / update the plot for a given variable:
+        function update(data) {
+        
+          // Update the X axis
+          x.domain(data.map(function(d) { return d.group; }))
+          xAxis.call(d3.axisBottom(x))
+        
+          // Update the Y axis
+          y.domain([0, d3.max(data, function(d) { return d.value }) ]);
+          yAxis.transition().duration(1000).call(d3.axisLeft(y));
+        
+          // Create the u variable
+          var u = svg.selectAll("rect")
+            .data(data)
+        
+          u
+            .enter()
+            .append("rect") // Add a new rect for each new elements
+            .merge(u) // get the already existing elements as well
+            .transition() // and apply changes to all of them
+            .duration(1000)
+              .attr("x", function(d) { return x(d.group); })
+              .attr("y", function(d) { return y(d.value); })
+              .attr("width", x.bandwidth())
+              .attr("height", function(d) { return height - y(d.value); })
+              .attr("fill", "#69b3a2")
+        
+          // If less group in the new dataset, I delete the ones not in use anymore
+          u
+            .exit()
+            .remove()
+        }
+        
+        // Initialize the plot with the first dataset
+        update(data1)
+        
+        </script>
     
 </body>
 </html>

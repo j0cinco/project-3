@@ -24,7 +24,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/data", methods=["GET"])
+@app.route("/Data", methods=["GET"])
 def get_data():
     conn = sqlite3.connect("database.sqlite")
     cursor = conn.cursor()
@@ -38,6 +38,17 @@ def get_data():
     conn.close()
 
     return jsonify(data)
-
+@app.route("/Pop")
+def Pop():
+    return render_template("index.html")
+@app.route("/Rap")
+def Rap():
+    return render_template("index.html")
+@app.route("/Country")
+def Country():
+    return render_template("index.html")
+@app.route("/Dubstep")
+def Dubstep():
+    return render_template("index.html")
 if __name__ == "__main__":
     app.run(debug=True)
