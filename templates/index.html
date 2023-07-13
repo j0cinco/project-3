@@ -24,25 +24,65 @@
             <a href="HipHop">Hip Hop</a>
             <a href="Country">Country</a>
             <a href="IndiePop">Indie Pop</a>
-            <a onclick="update(data1)">Variable 1</a>
-            <a onclick="update(data2)">Variable 2</a>
 
         </div>
             
     
         <div class="container">
-            <div class="box">Top 20 of your choice</div>
+            <div class="box" id="top20list"></div>
             <div class="box" id="my_dataviz"></div>
         </div>
     </section>
     <script>
+      
+      function createListFromJSON() {
+        var dataList = document.getElementById('top20list');
+  
+       
+        fetch('/CountryData')
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(jsonData) {
+            
+            jsonData.sort(function(a, b) {
+              return b.artist_name - a.artist_name; 
+            });
+  
+            
+            var list = document.createElement('ul');
+  
+            
+            var limit = Math.min(jsonData.length, 10); 
+            for (var i = 0; i < limit; i++) {
+              var item = document.createElement('li');
+              item.textContent = jsonData[i].name + ' - Age: ' + jsonData[i].age;
+              list.appendChild(item);
+            }
+  
+            
+            dataList.appendChild(list);
+          })
+          .catch(function(error) {
+            console.log('Error fetching JSON data:', error);
+          });
+      }
+  
+      
+      createListFromJSON();
+    </script>
 
-      // set the dimensions and margins of the graph
+
+
+
+    <script>
+
+      
       var margin = {top: 10, right: 100, bottom: 30, left: 30},
           width = 460 - margin.left - margin.right,
           height = 400 - margin.top - margin.bottom;
       
-      // append the svg object to the body of the page
+      
       var svg = d3.select("#my_dataviz")
         .append("svg")
           .attr("width", width + margin.left + margin.right)
@@ -51,14 +91,14 @@
           .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
       
-      //Read the data
+      
       d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_connectedscatter.csv", function(data) {
       
-          // List of groups (here I have one group per column)
+          
           var allGroup = ["valueA", "valueB", "valueC"]
       
-          // Reformat the data: we need an array of arrays of {x, y} tuples
-          var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+          
+          var dataReady = allGroup.map( function(grpName) { 
             return {
               name: grpName,
               values: data.map(function(d) {
@@ -66,15 +106,15 @@
               })
             };
           });
-          // I strongly advise to have a look to dataReady with
-          // console.log(dataReady)
+          
+          
       
-          // A color scale: one color for each group
+          
           var myColor = d3.scaleOrdinal()
             .domain(allGroup)
             .range(d3.schemeSet2);
       
-          // Add X axis --> it is a date format
+          
           var x = d3.scaleLinear()
             .domain([0,10])
             .range([ 0, width ]);
@@ -82,14 +122,14 @@
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x));
       
-          // Add Y axis
+          
           var y = d3.scaleLinear()
             .domain( [0,20])
             .range([ height, 0 ]);
           svg.append("g")
             .call(d3.axisLeft(y));
       
-          // Add the lines
+          
           var line = d3.line()
             .x(function(d) { return x(+d.time) })
             .y(function(d) { return y(+d.value) })
@@ -103,16 +143,16 @@
               .style("stroke-width", 4)
               .style("fill", "none")
       
-          // Add the points
+          
           svg
-            // First we need to enter in a group
+            
             .selectAll("myDots")
             .data(dataReady)
             .enter()
               .append('g')
               .style("fill", function(d){ return myColor(d.name) })
               .attr("class", function(d){ return d.name })
-            // Second we need to enter in the 'values' part of this group
+            
             .selectAll("myPoints")
             .data(function(d){ return d.values })
             .enter()
@@ -122,7 +162,7 @@
               .attr("r", 5)
               .attr("stroke", "white")
       
-          // Add a label at the end of each line
+          
           svg
             .selectAll("myLabels")
             .data(dataReady)
@@ -137,7 +177,7 @@
                 .style("fill", function(d){ return myColor(d.name) })
                 .style("font-size", 15)
       
-          // Add a legend (interactive)
+          
           svg
             .selectAll("myLegend")
             .data(dataReady)
@@ -150,9 +190,9 @@
                 .style("fill", function(d){ return myColor(d.name) })
                 .style("font-size", 15)
               .on("click", function(d){
-                // is the element currently visible ?
+                
                 currentOpacity = d3.selectAll("." + d.name).style("opacity")
-                // Change the opacity: from 0 to 1 or from 1 to 0
+                
                 d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0:1)
       
               })
