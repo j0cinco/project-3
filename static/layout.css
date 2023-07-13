@@ -90,9 +90,8 @@ input[type=range] + datalist option {
   grid-column-gap: 50px;
   grid-row-gap: 20px;
   .box{
-    background-color:#1DB954;
-    padding:20px;
-    border-radius:10px;
+    background-color:#656866;
+    padding:10px;
     color:#fff;
     display:flex;
     align-items:center;
