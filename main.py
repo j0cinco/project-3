@@ -26,18 +26,60 @@ def index():
 
 @app.route("/Data", methods=["GET"])
 def get_data():
-    conn = sqlite3.connect("database.sqlite")
+    conn = sqlite3.connect("spotify_database.sqlite")
     cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM spotify")  
+    cursor.execute("SELECT * FROM spotify_analytics")  
     rows = cursor.fetchall()
-
     columns = [desc[0] for desc in cursor.description]
     data = [dict(zip(columns, row)) for row in rows]
-
     conn.close()
-
     return jsonify(data)
+@app.route("/CountryData", methods=["GET"])
+def get_country_data():
+    conn = sqlite3.connect("spotify_database.sqlite")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Country_Popularity")  
+    rows = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
+    data = [dict(zip(columns, row)) for row in rows]
+    conn.close()
+    return jsonify(data)
+@app.route("/HipHopData", methods=["GET"])
+def get_HipHop_data():
+    conn = sqlite3.connect("spotify_database.sqlite")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM HipHOP_Popularity")  
+    rows = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
+    data = [dict(zip(columns, row)) for row in rows]
+    conn.close()
+    return jsonify(data)
+@app.route("/IndiePopData", methods=["GET"])
+def get_IndiePop_Data():
+    conn = sqlite3.connect("spotify_database.sqlite")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM IndiePop_Popularity")  
+    rows = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
+    data = [dict(zip(columns, row)) for row in rows]
+    conn.close()
+    return jsonify(data)
+@app.route("/PopData", methods=["GET"])
+def get_Pop_Data():
+    conn = sqlite3.connect("spotify_database.sqlite")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Pop_Popularity")  
+    rows = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
+    data = [dict(zip(columns, row)) for row in rows]
+    conn.close()
+    return jsonify(data)
+
+
+
+
+
+
 @app.route("/Pop")
 def Pop():
     return render_template("index.html")
