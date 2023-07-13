@@ -41,14 +41,14 @@ def get_data():
 @app.route("/Pop")
 def Pop():
     return render_template("index.html")
-@app.route("/Rap")
-def Rap():
+@app.route("/HipHop")
+def HipHop():
     return render_template("index.html")
 @app.route("/Country")
 def Country():
     return render_template("index.html")
-@app.route("/Dubstep")
-def Dubstep():
+@app.route("/IndiePop")
+def IndiePop():
     return render_template("index.html")
 if __name__ == "__main__":
     app.run(debug=True)

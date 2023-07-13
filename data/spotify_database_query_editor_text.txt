@@ -4,44 +4,36 @@
 
 SELECT * FROM "spotify_analytics";
 
-
+CREATE Table Genre_Popularity AS
 SELECT AVG(popularity), genre
 FROM spotify_analytics
 GROUP BY genre
 ORDER BY AVG(popularity) DESC;
 
+CREATE Table HipHOP_Popularity AS
 SELECT artist_name, popularity, year, genre
 FROM spotify_analytics
-WHERE genre='alt-rock'
+WHERE genre='hip-hop'
 GROUP BY artist_name
 ORDER BY popularity DESC;
 
+CREATE Table Pop_Popularity AS
 SELECT artist_name, popularity, year, genre
 FROM spotify_analytics
 WHERE genre='pop'
 GROUP BY artist_name
 ORDER BY popularity DESC;
 
-SELECT artist_name, popularity, year, genre
-FROM spotify_analytics
-WHERE genre='electro'
-GROUP BY artist_name
-ORDER BY popularity DESC;
-
-SELECT artist_name, popularity, year, genre
-FROM spotify_analytics
-WHERE genre='metal'
-GROUP BY artist_name
-ORDER BY popularity DESC;
-
-SELECT artist_name, popularity, year, genre
-FROM spotify_analytics
-WHERE genre='indie-pop'
-GROUP BY artist_name
-ORDER BY popularity DESC;
-
+CREATE Table Country_Popularity AS
 SELECT artist_name, popularity, year, genre
 FROM spotify_analytics
 WHERE genre='country'
+GROUP BY artist_name
+ORDER BY popularity DESC;
+
+CREATE Table IndiePop_Popularity AS
+SELECT artist_name, popularity, year, genre
+FROM spotify_analytics
+WHERE genre='indie-pop'
 GROUP BY artist_name
 ORDER BY popularity DESC;
