@@ -1,100 +1,27 @@
-/* Stars*/
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  
+.stars-outer {
+  position: relative;
+  display: inline-block;
 }
-body{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(45deg, #ffd195, #ffb283);
-}
-.rating-box {
-    position: relative;
-    background: #fff;
-    padding: 25px 50px 35px;
-    border-radius: 25px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-}
-.rating-box header{
-    font-size: 22px;
-    color: #dadada;
-    font-weight: 500;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.rating-box .stars{
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-.stars i{
-    color: #e6e6e6;
-    font-size: 35px;
-    cursor: pointer;
-    transition: color 0.2s ;
-}
-.stars i.active{
-    color: #ff9c1a;
-}
-.rating-box .starz{
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-.stars i{
-    color: #e6e6e6;
-    font-size: 35px;
-    cursor: pointer;
-    transition: color 0.2s ;
-}
-.stars i.active{
-    color: #ff9c1a;
-}
-table {
-    margin: 0 auto;
-    text-align: center;
-    border-collapse: collapse;
-    border: 1px solid #d4d4d4;
-    font-size: 20px;
-    background: #fff;
-  }
-  table th, 
-  table tr:nth-child(2n+2) {
-    background: #e7e7e7;
-  }
-   
-  table th, 
-  table td {
-    padding: 20px 50px;
-  }
-   
-  table th {
-    border-bottom: 1px solid #d4d4d4;
-  }   
-  .stars-outer {
-    display: inline-block;
-    position: relative;
-    font-family: FontAwesome;
-  }
-  .stars-outer::before {
-    content: "\f006 \f006 \f006 \f006 \f006";
-  }
-  .stars-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-  }
-  .stars-inner::before {
-    content: "\f005 \f005 \f005 \f005 \f005";
-    color: #f8ce0b;
-  }
 
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
+}
+
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #f8ce0b;
+}
