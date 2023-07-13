@@ -1,35 +1,43 @@
+import sqlite3
 import numpy as np
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func
+from flask import Flask, jsonify, render_template
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+ 
+engine = create_engine("sqlite:///database.sqlite")
 
-from flask import Flask, render_template
+Base = declarative_base()
 
-app = Flask(__name__)
 
-engine = create_engine("sqlite:///data/table_schemata.sql")
+class Spotify(Base):
+    __tablename__ = 'spotify'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
 
-def home():
+Base.metadata.create_all(engine)
 
-    return render_template('home.html')
+app = Flask(__name__, static_folder='static')
 
-@app.route('/rap')
-def rap():
+@app.route("/")
+def index():
+    return render_template("index.html")
 
-    return render_template('rap.html')
 
-@app.route('/pop')
-def pop():
+@app.route("/data", methods=["GET"])
+def get_data():
+    conn = sqlite3.connect("database.sqlite")
+    cursor = conn.cursor()
 
-    return render_template('pop.html')
+    cursor.execute("SELECT * FROM spotify")  
+    rows = cursor.fetchall()
 
-@app.route('/rock')
-def hip_hop():
+    columns = [desc[0] for desc in cursor.description]
+    data = [dict(zip(columns, row)) for row in rows]
 
-    return render_template('rock.html')
+    conn.close()
 
-@app.route('/country')
-def country():
+    return jsonify(data)
 
-    return render_template('country.html')
+if __name__ == "__main__":
+    app.run(debug=True)
