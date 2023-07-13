@@ -31,7 +31,7 @@
             
     
         <div class="container">
-            <div class="box">Top 20 Artists</div>
+            <div class="box" id="JSONorderedList"></div>
             <div class="box" id="my_dataviz1"></div>
             <div class="box">Tempo VS Popularity</div>
             <div class="box" ></div>
@@ -117,8 +117,27 @@
         
         // Initialize the plot with the first dataset
         update(data1)
-        
+               
         </script>
-    
+
+<ol id="JSONorderedList"></ol>
+        
+<script>
+  // (B1) JSON STRING TO ARRAY
+  var data = '["artist_name", "popularity"]';
+  data = JSON.parse(data);
+  
+  // (B2) CREATE LIST
+  var list = document.createElement("ol");
+  for (let i of data) {
+    let item = document.createElement("li");
+    item.innerHTML = i;
+    list.appendChild(item);
+  }
+  
+  // (B3) APPEND LIST TO CONTAINER
+  document.getElementById("JSONorderedList").appendChild(list);
+  </script>
+
 </body>
 </html>
