@@ -23,6 +23,10 @@ app = Flask(__name__, static_folder='static')
 def index():
     return render_template("index.html")
 
+@app.route("/Stars")
+def Stars():
+    return render_template("Spotify Star Ratings.html")
+
 
 @app.route("/Data", methods=["GET"])
 def get_data():

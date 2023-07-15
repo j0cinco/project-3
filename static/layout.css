@@ -85,7 +85,7 @@ input[type=range] + datalist option {
   width:900px;
   height:825px;
   display:grid;
-  grid-template-columns: 500px 500px;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-row: auto auto;
   grid-column-gap: 50px;
   grid-row-gap: 20px;
