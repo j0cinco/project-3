@@ -26,6 +26,14 @@ def index():
 @app.route("/Stars")
 def Stars():
     return render_template("Spotify Star Ratings.html")
+@app.route("/Popularity")
+def Popularity():
+    return render_template("Popularity.html")
+
+@app.route("/Tempo")
+def Tempo():
+    return render_template("Tempo.html")
+
 
 
 @app.route("/Data", methods=["GET"])
