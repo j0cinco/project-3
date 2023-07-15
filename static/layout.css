@@ -90,7 +90,7 @@ input[type=range] + datalist option {
   grid-column-gap: 50px;
   grid-row-gap: 20px;
   .box{
-    background-color:#656866;
+    background-color:#c1e6cd;
     padding:10px;
     color:#fff;
     display:flex;
