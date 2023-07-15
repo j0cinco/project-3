@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotify's Greatest Analysis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+
+</head>
+<body>
+    <video autoplay muted loop id="myVideo">
+        <source src="{{ url_for('static', filename='videos/background.mp4') }}" type="video/mp4">
+    </video>
+
+
+    <section>
+        <div class="sidenav">
+            <a href="Data">Data</a>
+            <a href="Pop">Pop</a>
+            <a href="HipHop">Hip Hop</a>
+            <a href="Country">Country</a>
+            <a href="IndiePop">Indie Pop</a>
+            <a href="Stars">Stars</a>
+
+        </div>
+            
+    
+        <div class="container">
+          <div class="box" id="pie_chart"></div>
+        </div>
+
+    </section>
+    
+</body>
+</html>

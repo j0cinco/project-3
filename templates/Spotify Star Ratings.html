@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Spotify Star Ratings</title>
-    <link rel="stylesheet" href="style-old.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-old.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     
-    <script src="script-old.js" defer></script>
+    <script src="{{ url_for('static', filename='script-old.js') }}" defer></script>
 </head>
 <body>
     <div class="rating-box">
