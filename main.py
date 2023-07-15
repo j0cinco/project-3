@@ -34,6 +34,11 @@ def Popularity():
 def Tempo():
     return render_template("Tempo.html")
 
+@app.route("/Home")
+def Home():
+    return render_template("Home.html")
+
+
 
 
 @app.route("/Data", methods=["GET"])
