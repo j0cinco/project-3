@@ -20,8 +20,8 @@ Base.metadata.create_all(engine)
 app = Flask(__name__, static_folder='static')
 
 @app.route("/")
-def index():
-    return render_template("index.html")
+def Home():
+    return render_template("Home.html")
 
 @app.route("/Stars")
 def Stars():
@@ -34,9 +34,6 @@ def Popularity():
 def Tempo():
     return render_template("Tempo.html")
 
-@app.route("/Home")
-def Home():
-    return render_template("Home.html")
 
 
 
