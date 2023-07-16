@@ -37,3 +37,15 @@ FROM spotify_analytics
 WHERE genre='indie-pop'
 GROUP BY artist_name
 ORDER BY popularity DESC;
+
+CREATE Table avg_tempo AS
+SELECT AVG(tempo), genre
+FROM spotify_analytics
+GROUP BY genre
+ORDER BY AVG(tempo) DESC;
+
+CREATE Table avg_energy AS
+SELECT AVG(energy), genre
+FROM spotify_analytics
+GROUP BY genre
+ORDER BY AVG(energy) DESC;
