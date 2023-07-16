@@ -27,95 +27,154 @@
 
     <div class="container">
         <div class="box">
-            <button onclick="updateChart()">Tempo</button>
-            <button onclick="updateChart()">Energy</button>
+            <button onclick="updateChart()" id="tempoButton">Tempo</button>
+            <button onclick="updateChart()" id="energyButton">Energy</button>
             <canvas id="myChart"></canvas>
         </div>
     </div>
 
     <script>
-        async function fetchData() {
-            const url = '/Data';
-            const response = await fetch(url);
-            const datapoints = await response.json();
-            console.log(datapoints);
-            return datapoints;
-        }
+async function fetchData() {
+    const url = '/Data';
+    const response = await fetch(url);
+    const datapoints = await response.json();
+    console.log(datapoints);
+    return datapoints;
+}
 
-        function groupBy(data, key) {
-            return data.reduce((result, item) => {
-                const genre = item[key];
-                if (!result[genre]) {
-                    result[genre] = [];
+function groupBy(data, key) {
+    return data.reduce((result, item) => {
+        const genre = item[key];
+        if (!result[genre]) {
+            result[genre] = [];
+        }
+        result[genre].push(item);
+        return result;
+    }, {});
+}
+
+let selectedDataset = 'tempo'; // Track currently selected dataset
+
+function updateChart() {
+    fetchData().then(datapoints => {
+        const groupedData = groupBy(datapoints, 'genre');
+
+        const genre = Object.keys(groupedData);
+        const tempoData = Object.values(groupedData).map(group => {
+            const averageTempo = group.reduce((sum, item) => sum + item.tempo, 0) / group.length;
+            return averageTempo.toFixed(2);
+        });
+
+        const energyData = Object.values(groupedData).map(group => {
+            const averageEnergy = group.reduce((sum, item) => sum + item.energy, 0) / group.length;
+            return averageEnergy.toFixed(2);
+        });
+
+        console.log(genre);
+        console.log(tempoData);
+        console.log(energyData);
+
+        const newData = selectedDataset === 'tempo' ? tempoData : energyData;
+
+        myChart.data.labels = genre;
+        myChart.data.datasets[0].data = newData;
+        myChart.data.datasets[0].label = `Average ${selectedDataset.charAt(0).toUpperCase() + selectedDataset.slice(1)}`;
+        myChart.options.scales.y.title.text = selectedDataset.charAt(0).toUpperCase() + selectedDataset.slice(1);
+        myChart.update();
+    });
+}
+
+const labels = [];
+const data = {
+    labels: labels,
+    datasets: [{
+        label: 'Average Tempo',
+        data: [],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+    }]
+};
+
+const config = {
+    type: 'bar',
+    data: data,
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Average Tempo by Genre',
+                font: {
+                    size: 16
                 }
-                result[genre].push(item);
-                return result;
-            }, {});
-        }
-
-        function updateChart() {
-            fetchData().then(datapoints => {
-                const groupedData = groupBy(datapoints, 'genre');
-
-                const genre = Object.keys(groupedData);
-                const tempo = Object.values(groupedData).map(group => {
-                    const averageTempo = group.reduce((sum, item) => sum + item.tempo, 0) / group.length;
-                    return averageTempo.toFixed(2);
-                });
-
-                console.log(genre);
-                console.log(tempo);
-
-                myChart.data.labels = genre;
-                myChart.data.datasets[0].data = tempo;
-                myChart.update();
-            });
-        }
-
-        const labels = [];
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: 'Average Tempo',
-                data: [65, 59, 80, 81, 56, 55, 40],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
-            }]
-        };
-
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            },
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Genre',
+                    font: {
+                        size: 14
                     }
                 }
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Tempo',
+                    font: {
+                        size: 14
+                    }
+                },
+                beginAtZero: true
             }
-        };
+        }
+    }
+};
 
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+);
+
+// Adding interactivity to the Energy button
+const energyButton = document.getElementById('energyButton');
+const tempoButton = document.getElementById('tempoButton');
+
+energyButton.addEventListener('click', () => {
+    selectedDataset = 'energy';
+    updateChart();
+});
+
+tempoButton.addEventListener('click', () => {
+    selectedDataset = 'tempo';
+    updateChart();
+});
+
+// Initial chart update
+updateChart();
     </script>
 </body>
 </html>
