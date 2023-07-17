@@ -11,6 +11,9 @@
     <script src="{{ url_for('static', filename='script-old.js') }}" defer></script>
 </head>
 <body>
+  <video autoplay muted loop id="myVideo">
+    <source src="{{ url_for('static', filename='videos/stars_background.mp4') }}" type="video/mp4">
+</video>
     <div class="rating-box">
       <header>Rate the music genres from 1-5 stars</header>
 
