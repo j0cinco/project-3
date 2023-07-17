@@ -22,10 +22,6 @@ app = Flask(__name__, static_folder='static')
 @app.route("/")
 def Home():
     return render_template("Home.html")
-
-@app.route("/Stars")
-def Stars():
-    return render_template("Spotify Star Ratings.html")
 @app.route("/Popularity")
 def Popularity():
     return render_template("Popularity.html")
@@ -38,6 +34,11 @@ def Tempo():
 @app.route("/Test")
 def Testing():
     return render_template("Testing.html")
+
+
+@app.route("/Stars")
+def Stars():
+    return render_template("pollingchart.html")
 
 
 
