@@ -35,6 +35,10 @@ def Tempo():
     return render_template("Tempo.html")
 
 
+@app.route("/Test")
+def Testing():
+    return render_template("Testing.html")
+
 
 
 
